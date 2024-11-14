@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "3.3.6"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -42,4 +44,3 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
-
