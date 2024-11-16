@@ -4,7 +4,7 @@
   <%= render "partials/flash" %>
 
   <%= form_with url: solving_recurrence_relations_path, method: :post do |f| %>
-    <%= f.text_field :recurrence_relation, value: params[:recurrence_relation], placeholder: "a(n) - 4 * a(n-1) + 4 * a(n-2)" %>
+    <%= f.text_field :recurrence_relation, value: params[:recurrence_relation], placeholder: "a(n) - 1 * a(n-1) + 4 * a(n-2)" %>
     <%= f.label :recurrence_relation, " = 0" %>
     <br />
 
