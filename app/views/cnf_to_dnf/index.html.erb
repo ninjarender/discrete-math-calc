@@ -1,6 +1,8 @@
 <p>CNF to DNF</p>
 
 <%= turbo_frame_tag "cnf_to_dnf" do %>
+  <%= render "partials/flash" %>
+
   <%= form_with url: cnf_to_dnf_index_path, method: :post do |f| %>
     <%= f.text_area :cnf, value: params[:cnf], rows: 10, cols: 50 %>
     <%= f.submit %>

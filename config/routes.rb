@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   root "home#index"
   resources :cnf_to_dnf, only: %i[index create]
   resources :recurrence_relations, only: %i[index create]
+  resources :solving_recurrence_relations, only: %i[index create]
 end

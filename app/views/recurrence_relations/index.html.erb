@@ -1,18 +1,24 @@
 <p>Recurrence Relations</p>
 
 <%= turbo_frame_tag "recurrence_relations" do %>
+  <%= render "partials/flash" %>
+
   <%= form_with url: recurrence_relations_path, method: :post do |f| %>
     <%= f.label :recurrence_relation, "a(n) = " %>
     <%= f.text_field :recurrence_relation, value: params[:recurrence_relation], placeholder: "3 * a(n-3) + 2 * a(n-2) + a(n-1)" %>
+    <br />
 
-    <%= f.label :a_1, "a(1)" %>
+    <%= f.label :a_1, "a(1) = " %>
     <%= f.text_field :a_1, value: params[:a_1] %>
+    <br />
 
-    <%= f.label :a_2, "a(2)" %>
+    <%= f.label :a_2, "a(2) = " %>
     <%= f.text_field :a_2, value: params[:a_2] %>
+    <br />
 
-    <%= f.label :a_3, "a(3)" %>
+    <%= f.label :a_3, "a(3) = " %>
     <%= f.text_field :a_3, value: params[:a_3] %>
+    <br />
 
     <p>a(4) = <%= @a_4 %></p>
     <p>a(5) = <%= @a_5 %></p>

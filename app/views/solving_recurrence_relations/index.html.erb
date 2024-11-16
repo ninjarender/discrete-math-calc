@@ -1,0 +1,25 @@
+<p>Solving Recurrence Relations</p>
+
+<%= turbo_frame_tag "solving_recurrence_relations" do %>
+  <%= render "partials/flash" %>
+
+  <%= form_with url: solving_recurrence_relations_path, method: :post do |f| %>
+    <%= f.text_field :recurrence_relation, value: params[:recurrence_relation], placeholder: "a(n) - 4 * a(n-1) + 4 * a(n-2)" %>
+    <%= f.label :recurrence_relation, " = 0" %>
+    <br />
+
+    <%= f.label :a_1, "a(1) = " %>
+    <%= f.text_field :a_1, value: params[:a_1] %>
+    <br />
+
+    <%= f.label :a_2, "a(2) = " %>
+    <%= f.text_field :a_2, value: params[:a_2] %>
+    <br />
+
+    <%= f.submit "Solve" %>
+  <% end %>
+
+  <% if @solve %>
+    <p style='margin-top: 20px;'>Solve: <%= @solve %></p>
+  <% end %>
+<% end %>

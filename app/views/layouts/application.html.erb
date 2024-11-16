@@ -24,15 +24,6 @@
       <%= link_to "Home", root_path %>
     <% end %>
 
-    <div data-controller="flash">
-      <% flash.each do |type, message| %>
-        <div class="flash <%= type %>">
-          <%= message %>
-          <span class="close" style="cursor: pointer; margin-left: 25px;" data-action="flash#dismiss">x</span>
-        </div>
-      <% end %>
-    </div>
-
     <%= yield %>
   </body>
 </html>
