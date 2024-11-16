@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
   resources :cnf_to_dnf, only: %i[index create]
+  resources :recurrence_relations, only: %i[index create]
 end

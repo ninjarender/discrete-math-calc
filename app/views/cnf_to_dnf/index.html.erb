@@ -7,24 +7,24 @@
   <% end %>
 
   <% if @table.present? %>
-  <div style="display: flex; flex-direction: row; gap: 30px; margin-top: 30px;">
-    <table style="border-collapse: collapse;">
-      <tr>
-        <% @variables.each do |variable| %>
-          <th style="border: 1px solid black; padding: 8px; text-align: center;"><%= variable.downcase %></th>
-        <% end %>
-        <th style="border: 1px solid black; padding: 8px; text-align: center;">f</th>
-      </tr>
-      <% @table.each do |row| %>
+    <div style="display: flex; flex-direction: row; gap: 30px; margin-top: 30px;">
+      <table style="border-collapse: collapse;">
         <tr>
-          <% row.each do |key, value| %>
-          <td style="border: 1px solid black; padding: 5px; text-align: left;"><%= value %></td>
+          <% @variables.each do |variable| %>
+            <th style="border: 1px solid black; padding: 8px; text-align: center;"><%= variable.downcase %></th>
+          <% end %>
+          <th style="border: 1px solid black; padding: 8px; text-align: center;">f</th>
+        </tr>
+        <% @table.each do |row| %>
+          <tr>
+            <% row.each do |key, value| %>
+            <td style="border: 1px solid black; padding: 5px; text-align: left;"><%= value %></td>
+          <% end %>
+        </tr>
         <% end %>
-      </tr>
-      <% end %>
-    </table>
+      </table>
 
-    <p style="word-break: break-word; overflow-wrap: break-word;">DNF: <%= @dnf_terms %></p>
-  </div>
+      <p style="word-break: break-word; overflow-wrap: break-word;">DNF: <%= @dnf_terms %></p>
+    </div>
   <% end %>
 <% end %>
