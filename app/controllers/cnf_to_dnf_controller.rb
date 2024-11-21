@@ -2,7 +2,7 @@ class CnfToDnfController < ApplicationController
   def index; end
 
   def create
-    expression = params[:cnf].strip.gsub("~", "!").gsub("-", "!").gsub("+", "||").gsub(")(", ") && (").gsub(") (", ") && (").upcase
+    expression = params[:cnf].squish.gsub("~", "!").gsub("-", "!").gsub("+", "||").gsub(")(", ") && (").gsub(") (", ") && (").upcase
 
     @variables = expression.scan(/[A-Z]+/).uniq
     num_rows = 2 ** @variables.size
@@ -17,7 +17,7 @@ class CnfToDnfController < ApplicationController
     end.join("+")
 
     respond_to do |format|
-      format.html { render :index, status: :ok }
+      format.html { render :index }
     end
   rescue
     respond_to do |format|

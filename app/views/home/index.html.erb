@@ -1,5 +1,75 @@
-<ul>
-  <li><%= link_to "CNF to DNF", cnf_to_dnf_index_path %></li>
-  <li><%= link_to "Recurrence Relations", recurrence_relations_path %></li>
-  <li><%= link_to "Solving Recurrence Relations", solving_recurrence_relations_path %></li>
-</ul>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discrete Math Calculator</title>
+  <style>
+    main {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .description {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    li {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      flex: 1 1 200px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    li:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    a {
+      text-decoration: none;
+      color: #6200ea;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  
+  <main>
+    <section class="description">
+      <p>
+        Welcome to the Discrete Math Calculator! This application provides tools for solving problems 
+        in discrete mathematics, including logical transformations, recurrence relations, and more. 
+        Use the options below to access specific calculators.
+      </p>
+    </section>
+    <ul>
+      <%= link_to cnf_to_dnf_index_path do %>
+        <li>CNF to DNF</li>
+      <% end %>
+      <%= link_to recurrence_relations_path do %>
+        <li>Recurrence Relations</li>
+      <% end %>
+      <%= link_to solving_recurrence_relations_path do %>
+        <li>Solving Recurrence Relations</li>
+      <% end %>
+      <%= link_to number_theory_path do %>
+        <li>Number Theory</li>
+      <% end %>
+    </ul>
+  </main>
+</body>
+</html>

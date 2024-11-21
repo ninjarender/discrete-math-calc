@@ -1,0 +1,97 @@
+<p>Number Theory</p>
+<br/>
+<br/>
+
+<%= turbo_frame_tag "number_theory" do %>
+  <%= render "partials/flash" %>
+
+  <p>Prime number</p>
+  <%= form_with url: number_theory_prime_numbers_path, method: :post do |form| %>
+    <%= form.label :prime_number_from, 'from' %>
+    <%= form.text_field :prime_number_from, value: params[:prime_number_from] || 2 %>
+
+    <%= form.label :prime_number_to, 'to' %>
+    <%= form.text_field :prime_number_to, value: params[:prime_number_to] || 100 %>
+
+    <%= form.submit %>
+  <% end %>
+  <p>Result: <%= @prime_numbers&.join(', ') %></p>
+  <br/>
+
+  <p>Prime factorization</p>
+  <%= form_with url: number_theory_prime_factorization_index_path, method: :post do |form| %>
+    <%= form.text_field :prime_factorization_number, value: params[:prime_factorization_number] %>
+    <%= form.submit %>
+  <% end %>
+  <p>Result: <%= @prime_factors&.join(', ') %></p>
+  <br/>
+
+  <p>Modulo</p>
+  <%= form_with url: number_theory_modulo_index_path, method: :post do |form| %>
+    <%= form.text_field :modulo_a, value: params[:modulo_a] %>
+    ( mod <%= form.text_field :modulo_mod, value: params[:modulo_mod] %> )
+     = <%= form.text_field :modulo_result, value: @modulo_result, readonly: true %>
+    <%= form.submit %>
+  <% end %>
+  <br/>
+
+  <p>GCD</p>
+  <%= form_with url: number_theory_gcd_index_path, method: :post do |form| %>
+    gcd(
+      <%= form.text_field :gcd_a, value: params[:gcd_a] %>,
+      <%= form.text_field :gcd_b, value: params[:gcd_b] %>
+    )
+     = <%= form.text_field :gcd_result, value: @gcd_result, readonly: true %>
+    <%= form.submit %>
+  <% end %>
+  <br/>
+
+  <p>Modulo inverse</p>
+  <%= form_with url: number_theory_modulo_inverse_index_path, method: :post do |form| %>
+    <%= form.text_field :modulo_inverse_a, value: params[:modulo_inverse_a] %>
+    ( mod <%= form.text_field :modulo_inverse_mod, value: params[:modulo_inverse_mod] %> )
+     = <%= form.text_field :modulo_inverse_result, value: @modulo_inverse_result, readonly: true %>
+    <%= form.submit %>
+  <% end %>
+  <br/>
+
+  <p>Linear congruence</p>
+  <%= form_with url: number_theory_linear_congruence_index_path, method: :post do |form| %>
+    <%= form.text_field :linear_congruence_a, value: params[:linear_congruence_a] %>
+    * x ≡ <%= form.text_field :linear_congruence_b, value: params[:linear_congruence_b] %>
+    ( mod <%= form.text_field :linear_congruence_mod, value: params[:linear_congruence_mod] %> )
+    <%= form.submit %>
+  <% end %>
+  <p>Result: <%= @linear_congruence_result&.join(', ') %></p>
+  <br/>
+
+  <p>Addition</p>
+  <%= form_with url: number_theory_addition_index_path, method: :post do |form| %>
+    <%= form.text_field :addition_a, value: params[:addition_a] %>
+    + <%= form.text_field :addition_b, value: params[:addition_b] %>
+    ( mod <%= form.text_field :addition_mod, value: params[:addition_mod] %> )
+     = <%= form.text_field :mod_add_result, value: @mod_add_result, readonly: true %>
+    <%= form.submit %>
+  <% end %>
+  <br/>
+
+  <p>Multiplication</p>
+  <%= form_with url: number_theory_multiplication_index_path, method: :post do |form| %>
+    <%= form.text_field :multiplication_a, value: params[:multiplication_a] %>
+    * <%= form.text_field :multiplication_b, value: params[:multiplication_b] %>
+    ( mod <%= form.text_field :multiplication_mod, value: params[:multiplication_mod] %> )
+     = <%= form.text_field :multiplication_result, value: @multiplication_result, readonly: true %>
+    <%= form.submit %>
+  <% end %>
+  <br/>
+
+  <p>Exponentiation</p>
+  <%= form_with url: number_theory_exponentiation_index_path, method: :post do |form| %>
+    <%= form.text_field :b, value: params[:b] %>
+    **
+    <%= form.text_field :e, value: params[:e] %>
+    ( mod <%= form.text_field :mod_exp_mod, value: params[:mod_exp_mod] %> )
+     = <%= form.text_field :mod_exp_result, value: @mod_exp_result, readonly: true %>
+    <%= form.submit %>
+  <% end %>
+<% end %>

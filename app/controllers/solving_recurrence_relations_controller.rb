@@ -1,4 +1,4 @@
-require 'matrix'
+require "matrix"
 
 class SolvingRecurrenceRelationsController < ApplicationController
   def index; end
@@ -7,7 +7,7 @@ class SolvingRecurrenceRelationsController < ApplicationController
     coefficients = []
 
     params[:recurrence_relation].scan(/(-?\s*\d*)\s*\*\s*a\(n\s*([\+\-]?\s*\d+)?\)/).each do |coef, offset|
-      coef = coef.empty? ? 1 : coef.gsub(' ', '').to_i
+      coef = coef.empty? ? 1 : coef.gsub(" ", "").to_i
       offset = offset.nil? ? 0 : offset.to_i
 
       if offset == 0
@@ -46,13 +46,13 @@ class SolvingRecurrenceRelationsController < ApplicationController
     else
       return respond_to do |format|
         flash[:error] = "The roots are complex numbers."
-        format.html { render :index, status: :ok }
+        format.html { render :index }
       end
     end
 
     a1 = params[:a_1].to_i
     a2 = params[:a_2].to_i
-    system_matrix = Matrix[[r1, r2], [r1**2, r2**2]]
+    system_matrix = Matrix[[ r1, r2 ], [ r1**2, r2**2 ]]
     results_vector = Vector[a1, a2]
 
     @solve = if system_matrix.regular?
@@ -69,7 +69,7 @@ class SolvingRecurrenceRelationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :index, status: :ok }
+      format.html { render :index }
     end
   end
 end

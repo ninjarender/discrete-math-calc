@@ -14,4 +14,19 @@ Rails.application.routes.draw do
   resources :cnf_to_dnf, only: %i[index create]
   resources :recurrence_relations, only: %i[index create]
   resources :solving_recurrence_relations, only: %i[index create]
+  resource :number_theory, only: %i[show], module: :number_theory do
+    resources :modulo, only: %i[create]
+    resources :gcd, only: %i[create]
+    resources :modulo_inverse, only: %i[create]
+    resources :prime_numbers, only: %i[create]
+    resources :prime_factorization, only: %i[create]
+    scope module: :modular_arithmetic do
+      resources :linear_congruence, only: %i[create]
+      resources :chinese_remainder_theorem, only: %i[create]
+      resources :addition, only: %i[create]
+      resources :multiplication, only: %i[create]
+      resources :division, only: %i[create]
+      resources :exponentiation, only: %i[create]
+    end
+  end
 end

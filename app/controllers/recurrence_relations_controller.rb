@@ -12,7 +12,7 @@ class RecurrenceRelationsController < ApplicationController
         operator = match.match(/[\+\-]/)[0]
         number = match.match(/\d+/)[0].to_i
 
-        result = operator == '+' ? i_n + number : i_n - number
+        result = operator == "+" ? i_n + number : i_n - number
 
         "@a_#{result}"
       end
@@ -20,7 +20,7 @@ class RecurrenceRelationsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render :index, status: :ok }
+      format.html { render :index }
     end
   end
 end
