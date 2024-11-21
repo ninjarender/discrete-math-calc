@@ -1,0 +1,37 @@
+<p>Sets</p>
+<br/>
+<br/>
+
+<%= turbo_frame_tag "sets" do %>
+  <p>Difference</p>
+  <%= form_with url: sets_difference_index_path, method: :post do |form| %>
+    { <%= form.text_field :difference_a, value: params[:difference_a], placeholder: "10, 20, 30" %> }
+    -
+    { <%= form.text_field :difference_b, value: params[:difference_b], placeholder: "20, 40, 50" %> }
+    =
+    { <%= form.text_field :difference_result, value: @difference_result, readonly: true %> }
+    <%= form.submit %>
+  <% end %>
+  <br/>
+
+  <p>Union</p>
+  <%= form_with url: sets_union_index_path, method: :post do |form| %>
+    { <%= form.text_field :union_a, value: params[:union_a], placeholder: "10, 20, 30" %> }
+    ∪
+    { <%= form.text_field :union_b, value: params[:union_b], placeholder: "20, 40, 50" %> }
+    =
+    { <%= form.text_field :union_result, value: @union_result, readonly: true %> }
+    <%= form.submit %>
+  <% end %>
+  <br/>
+
+  <p>Intersection</p>
+  <%= form_with url: sets_intersection_index_path, method: :post do |form| %>
+    { <%= form.text_field :intersection_a, value: params[:intersection_a], placeholder: "10, 20, 30" %> }
+    ∩
+    { <%= form.text_field :intersection_b, value: params[:intersection_b], placeholder: "20, 40, 50" %> }
+    =
+    { <%= form.text_field :intersection_result, value: @intersection_result, readonly: true %> }
+    <%= form.submit %>
+  <% end %>
+<% end %>

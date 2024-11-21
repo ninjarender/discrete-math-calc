@@ -14,6 +14,11 @@ Rails.application.routes.draw do
   resources :cnf_to_dnf, only: %i[index create]
   resources :recurrence_relations, only: %i[index create]
   resources :solving_recurrence_relations, only: %i[index create]
+  resource :sets, only: %i[show] do
+    resources :difference, only: %i[create]
+    resources :union, only: %i[create]
+    resources :intersection, only: %i[create]
+  end
   resource :number_theory, only: %i[show], module: :number_theory do
     resources :modulo, only: %i[create]
     resources :gcd, only: %i[create]
