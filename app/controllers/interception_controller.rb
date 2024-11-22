@@ -1,7 +1,7 @@
 class InterceptionController < ApplicationController
   def create
-    params[:intersection_a] = params[:intersection_a].split(", ").uniq.sort.join(", ")
-    params[:intersection_b] = params[:intersection_b].split(", ").uniq.sort.join(", ")
+    params[:intersection_a] = params[:intersection_a].split(/,\s*/).uniq.sort.join(", ")
+    params[:intersection_b] = params[:intersection_b].split(/,\s*/).uniq.sort.join(", ")
 
     @intersection_result = (params[:intersection_a].split(", ") & params[:intersection_b].split(", ")).uniq.sort.join(", ")
 

@@ -1,7 +1,7 @@
 class UnionController < ApplicationController
   def create
-    params[:union_a] = params[:union_a].split(", ").uniq.sort.join(", ")
-    params[:union_b] = params[:union_b].split(", ").uniq.sort.join(", ")
+    params[:union_a] = params[:union_a].split(/,\s*/).uniq.sort.join(", ")
+    params[:union_b] = params[:union_b].split(/,\s*/).uniq.sort.join(", ")
 
     @union_result = (params[:union_a].split(", ") | params[:union_b].split(", ")).uniq.sort.join(", ")
 
