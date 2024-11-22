@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resource :sets, only: %i[show] do
     resources :difference, only: %i[create]
     resources :union, only: %i[create]
-    resources :intersection, only: %i[create]
+    resources :interception, only: %i[create]
   end
   resource :number_theory, only: %i[show], module: :number_theory do
     resources :modulo, only: %i[create]

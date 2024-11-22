@@ -26,12 +26,12 @@
   <br/>
 
   <p>Intersection</p>
-  <%= form_with url: sets_intersection_index_path, method: :post do |form| %>
-    { <%= form.text_field :intersection_a, value: params[:intersection_a], placeholder: "10, 20, 30" %> }
+  <%= form_with url: sets_interception_index_path, method: :post do |form| %>
+    { <%= form.text_field :interception_a, value: params[:interception_a], placeholder: "10, 20, 30" %> }
     ∩
-    { <%= form.text_field :intersection_b, value: params[:intersection_b], placeholder: "20, 40, 50" %> }
+    { <%= form.text_field :interception_b, value: params[:interception_b], placeholder: "20, 40, 50" %> }
     =
-    { <%= form.text_field :intersection_result, value: @intersection_result, readonly: true %> }
+    { <%= form.text_field :interception_result, value: @interception_result, readonly: true %> }
     <%= form.submit %>
   <% end %>
 <% end %>
