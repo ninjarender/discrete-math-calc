@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= content_for(:title) || "Discrete Math Calc" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -15,40 +16,37 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
-
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f9;
-        color: #333;
-        height: 100vh;
-      }
-
-      header {
-        background-color: #00bcd4;
-        color: white;
-        padding: 20px;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-
-      header h1 {
-        margin: 0;
-        font-size: 2.5rem;
-      }
-    </style>
+    <!--підгрузе іконки з google material and icons-->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
   </head>
-
+  <!-- Body global -->
   <body>
-    <header>
+    <!-- Header -->
+    <!--Додав Home, посилання має бути робочим-->
+    <!---->
+    <header class="header">
+        <div class="header-left">
+            <a href="/" class="home-icon">
+                <span class="material-symbols-outlined">home</span>
+                <span class="header-text">Home</span>
+            </a>
+        </div>
+        <h1 class="header-title">Discrete Math Calculator</h1>
+        <!--сюди можна додати перемикач теми, або щось типу "About" де буде коротка технічна інфа про додаток, а також посилання-->
+    </header>
+    <!--Old header-->
+    <!-- <header>
+      <nav>
+        <a href="/" class="home-icon">
+          <span class="material-icons">home</span>
+        </a>
+      </nav>      
       <% if params[:controller] == "home" %>
         <h1>Discrete Math Calculator</h1>
       <% else %>
         <h1><%= link_to "Discrete Math Calculator", root_path %></h1>
       <% end %>
-    </header>
+    </header> -->
 
     <div class="container">
       <%= yield %>

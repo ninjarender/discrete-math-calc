@@ -37,3 +37,150 @@
 // @import "bulma/sass/layout/section.sass";
 
 @use 'bulma/bulma';
+
+/* General color variables for consistency */
+:root {
+  --header-color: #272833;
+  --subject-item: #464655;
+  --text-color: #cfd2e1;
+  --highlight-color: #0384c0;
+}
+
+// body global
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  height: 100vh;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* Для рівномірного розташування елементів */
+  padding: 10px 20px;
+  background-color: var(--header-color);
+  color: var(--text-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  /* Забезпечує вирівнювання */
+
+  .home-icon {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+    gap: 5px;
+
+    &:hover {
+      color: var(--highlight-color)
+    }
+
+    .header-text {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .material-icons {
+      font-size: 2rem;
+      margin-right: 8px;
+    }
+  }
+}
+
+.header-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-color);
+  text-align: center;
+  flex: 2;
+  /* Забезпечує центрування заголовка */
+  margin: 0;
+}
+
+/* Navigation buttons */
+.navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.nav-button {
+  background-color: var(--subject-item);
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 10px 20px;
+  width: 200px;
+  /* Всі кнопки однакового розміру */
+  text-align: center;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.nav-button:hover {
+  background-color: var(--highlight-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Remove purple focus outline for buttons */
+.nav-button:focus {
+  outline: none;
+}
+
+
+a {
+  text-decoration: none;
+  color: #6200ea;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.description {
+  margin-top: 20px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  min-width: 400px;
+  max-width: 700px;
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #0384c027;
+  justify-self: center;
+}
+
+/* поки хз як працює */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--bulma-scheme-main); // тестове налаштування використовує тему пристрою
+  border: 1px solid var(--bulma-border); // тестове налаштування використовує тему пристрою
+  /* якщо тестові не спрацюють або будуть виглядати не коректно застосуй ці.
+    background-color: #f9f9f9; 
+    border: 1px solid #ddd; */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
