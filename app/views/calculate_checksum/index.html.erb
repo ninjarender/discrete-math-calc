@@ -1,0 +1,20 @@
+<p>Calculate Checksum</p>
+<br/>
+<br/>
+
+<%= turbo_frame_tag "calculate_checksum" do %>
+  <%= render "partials/flash" %>
+
+  <%= form_with url: calculate_checksum_index_path, method: :post, local: true do |form| %>
+    <%= form.label :message_received %>
+    <%= form.text_field :message_received, value: params[:message_received], style: "width: 300px;" %>
+    
+    <%= form.label :checksum_received %>
+    <%= form.text_field :checksum_received, value: params[:checksum_received] %>
+
+    <%= form.submit "Calculate" %>
+
+    <p>Checksum calculated: <%= @checksum_calculated %></p>
+    <p>Checksum verification: <%= @checksum_verification %></p>
+  <% end %>
+<% end %>

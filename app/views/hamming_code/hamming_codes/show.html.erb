@@ -1,0 +1,26 @@
+<p>Correcting errors using Hamming code</p>
+<br/>
+<br/>
+
+<%= turbo_frame_tag "hamming_code" do %>
+  <%= render "partials/flash" %>
+
+  <p>Encode</p>
+  <%= form_with url: hamming_code_encode_index_path, method: :post do |form| %>
+    <%= form.label :encode_number, '4-bit message' %>
+    <%= form.text_field :encode_number, value: params[:encode_number] %>
+    <%= form.submit %>
+
+    <p>Result: <%= @encode_result %></p>
+  <% end %>
+
+  <p>Decode</p>
+  <%= form_with url: hamming_code_decode_index_path, method: :post do |form| %>
+    <%= form.label :decode_number, '7-bit message' %>
+    <%= form.text_field :decode_number, value: params[:decode_number] %>
+    <%= form.submit %>
+
+    <p>Syndrome: <%= @syndrome %></p>
+    <p>Result: <%= @decode_result %></p>
+  <% end %>
+<% end %>

@@ -16,6 +16,7 @@ class RecurrenceRelationsController < ApplicationController
 
         "@a_#{result}"
       end
+
       instance_variable_set("@a_#{i_n}", eval(a))
     end
 

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :union, only: %i[create]
     resources :interception, only: %i[create]
   end
+
   resource :number_theory, only: %i[show], module: :number_theory do
     resources :modulo, only: %i[create]
     resources :gcd, only: %i[create]
@@ -34,4 +35,11 @@ Rails.application.routes.draw do
       resources :exponentiation, only: %i[create]
     end
   end
+
+  resource :hamming_code, only: %i[show], module: :hamming_code do
+    resources :encode, only: %i[create]
+    resources :decode, only: %i[create]
+  end
+
+  resources :calculate_checksum, only: %i[index create]
 end
