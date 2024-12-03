@@ -1,0 +1,17 @@
+<p>Graph Theory</p>
+<br/>
+<br/>
+
+<%= turbo_frame_tag "number_of_vertices" do %>
+  <%= render "partials/flash" %>
+
+  <%= form_with url: graph_theory_number_of_vertices_path, method: :post, local: true do |form| %>
+    An undirected graph contains <%= form.text_field :edges, placeholder: "edges", value: params[:edges] %> edges — 
+    <%= form.text_field :vertices, placeholder: "vertices", value: params[:vertices] %> vertices of degree 
+    <%= form.text_field :degree, placeholder: "degree", value: params[:degree] %> 
+    and all other vertices of degree <%= form.text_field :other_degree, placeholder: "degree", value: params[:other_degree] %>
+    <%= form.submit "Calculate" %>
+
+    <p>Number of vertices: <%= @number_of_vertices %></p>
+  <% end %>
+<% end %>

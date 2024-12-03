@@ -42,4 +42,8 @@ Rails.application.routes.draw do
   end
 
   resources :calculate_checksum, only: %i[index create]
+
+  resource :graph_theory, only: %i[show], module: :graph_theory do
+    resources :number_of_vertices, only: %i[create]
+  end
 end
