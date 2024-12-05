@@ -3,8 +3,8 @@ class HammingCode::DecodeController < ApplicationController
     @p_0, @p_1, @d_0, @p_2, @d_1, @d_2, @d_3 = params[:decode_number].split("").map(&:to_i)
 
     p_0_check = @p_0 ^ @d_0 ^ @d_1 ^ @d_3
-    p_1_check = @p_1 ^ @d_0 ^ @d_2 ^ @d_3
-    p_2_check = @p_2 ^ @d_1 ^ @d_2 ^ @d_3
+    p_1_check = @p_1 ^ @d_1 ^ @d_2 ^ @d_3
+    p_2_check = @p_2 ^ @d_0 ^ @d_2 ^ @d_3
 
     @syndrome = "#{p_2_check}#{p_1_check}#{p_0_check}"
     @decode_result = if @syndrome == "000"
