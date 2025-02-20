@@ -19,7 +19,7 @@ class CnfToDnfController < ApplicationController
     respond_to do |format|
       format.html { render :index }
     end
-  rescue
+  rescue SyntaxError
     respond_to do |format|
       flash[:error] = "Invalid expression"
       format.html { render :index, status: :bad_request }

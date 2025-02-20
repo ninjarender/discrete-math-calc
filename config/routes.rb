@@ -46,4 +46,6 @@ Rails.application.routes.draw do
   resource :graph_theory, only: %i[show], module: :graph_theory do
     resources :number_of_vertices, only: %i[create]
   end
+
+  get 'health-and-fitness', to: 'home#health_and_fitness'
 end
