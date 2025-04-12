@@ -11,6 +11,14 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  namespace :java_examinator do
+    get "", to: "java_examinator#index"
+
+    resource :classes_constructors_and_object_initializing, only: %i[show]
+    resource :introduction_to_object_oriented_programming_encapsulation_inheritance_modifiers, only: %i[show]
+  end
+
   resources :cnf_to_dnf, only: %i[index create]
   resources :recurrence_relations, only: %i[index create]
   resources :solving_recurrence_relations, only: %i[index create]

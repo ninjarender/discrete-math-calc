@@ -1,0 +1,239 @@
+<h1>Classes. Constructors and Object Initializing</h1>
+<%= link_to "Back to Java Examinator", java_examinator_path %>
+
+<h2>Exercise 1</h2>
+<pre><code class="java">
+import java.util.Scanner;
+
+class Pair {
+  //fields must be the private instance constants
+  private final int a;
+  private final int b;
+
+  //declare and implement the private parameterized constructor
+  private Pair(int a, int b) {
+    this.a = a;
+    this.b = b;
+  }
+
+  //add modifiers to methods and implement them
+  public static Pair newInstance(int a, int b) {
+    return new Pair(a, b);
+  }
+  
+  public Pair orderedCopy() {
+    return (a <= b) ? this : new Pair(b, a);
+  }
+  
+  public Pair swappedCopy() {
+    return new Pair(b, a);
+  }
+
+  //do not change the toString() code
+  @Override
+  public String toString() {
+    return String.format("%d;%d", a, b);
+  }
+}
+
+class Solution {
+  public static void main(String[] args) {
+    try (Scanner sc = new Scanner(System.in)) {
+      int a0 = sc.nextInt();
+      int b0 = sc.nextInt();
+
+      Pair pair = Pair.newInstance(a0, b0);
+      System.out.println(pair + " " + pair.swappedCopy() + " " + pair.orderedCopy());
+    }
+  }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 2</h2>
+<pre><code class="java">
+class Watch {
+	private int hours;
+	private int minutes;
+	private int seconds;
+
+  public Watch() {
+  	this(0, 0, 0);
+  }
+
+  public Watch(int hours) {
+		this(hours, 0, 0);
+	}
+
+	public Watch(int hours, int minutes) {
+		this(hours, minutes, 0);
+	}
+	
+	public Watch(int hours, int minutes, int seconds) {
+  	setHours(hours);
+		setMinutes(minutes);
+		setSeconds(seconds);
+  }
+	
+	//getters and setters
+	public int getHours() {
+		return hours;
+	}
+
+	public void setHours(int hours) {
+		this.hours = (hours >= 0 && hours < 24) ? hours : 0;
+	}
+
+	public int getMinutes() {
+		return minutes;
+	}
+
+	public void setMinutes(int minutes) {
+		this.minutes = (minutes >= 0 && minutes < 60) ? minutes : 0;
+	}
+
+	public int getSeconds() {
+		return seconds;
+	}
+
+	public void setSeconds(int seconds) {
+		this.seconds = (seconds >= 0 && seconds < 60) ? seconds : 0;
+	}
+
+
+	public void update(int hours, int minutes, int seconds) {
+  	this.hours += hours;
+  	this.minutes += minutes;
+  	this.seconds += seconds;
+  
+  	// обмеження секунд в межах 0–59
+  	if (this.seconds >= 60 || this.seconds < 0) {
+  		this.seconds = ((this.seconds % 60) + 60) % 60;
+  	}
+  
+  	// обмеження хвилин в межах 0–59
+  	if (this.minutes >= 60 || this.minutes < 0) {
+  		this.minutes = ((this.minutes % 60) + 60) % 60;
+  	}
+  
+  	// години в межах 0–23
+  	if (this.hours >= 24 || this.hours < 0) {
+  		this.hours = ((this.hours % 24) + 24) % 24;
+  	}
+  }
+
+	//do not change the toString() code
+	@Override
+	public String toString() {
+		return String.format("%d:%02d:%02d", hours, minutes, seconds);
+	}
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 3</h2>
+<pre><code class="java">
+import java.util.Locale;
+import java.util.Scanner;
+
+
+class Material {
+	private final String name;
+	private final double density;
+
+	public Material(String name, double density) {
+		this.name = name;
+		this.density = density;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getDensity() {
+		return density;
+	}
+
+	// do not change
+	@Override
+	public String toString() {
+		return String.format("%s;%.1f", name, density);
+	}
+}
+
+class Subject {
+	private String name;
+	private Material material;
+	private double volume;
+
+	public Subject(String name, Material material, double volume) {
+		this.name = name;
+		this.material = material;
+		this.volume = volume;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Material getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(Material material) {
+		this.material = material;
+	}
+
+	public double getVolume() {
+		return volume;
+	}
+
+	public void setVolume(double volume) {
+		this.volume = volume;
+	}
+
+	public double getMass() {
+		return material.getDensity() * volume;
+	}
+
+	// do not change
+	@Override
+	public String toString() {
+		return String.format("%s;%s;%.2f;%.1f", name, material, volume, getMass());
+	}
+}
+
+
+class Solution {
+	public static void main(String[] args) {
+		Locale.setDefault(new Locale("EN"));
+		try (Scanner sc = new Scanner(System.in)) {
+			// Read material name and density
+			String materialName = sc.next();
+			double density = sc.nextDouble();
+
+			// Read subject name and volume
+			String subjectName = sc.next();
+			double volume = sc.nextDouble();
+
+			// Create material and subject
+			Material material = new Material(materialName, density);
+			Subject subject = new Subject(subjectName, material, volume);
+
+			// Output initial subject
+			System.out.print(subject + " ");
+
+			// Update material to copper
+			subject.setMaterial(new Material("copper", 8500.0));
+
+			// Output mass of updated subject (2 decimal places)
+			System.out.printf("%.2f", subject.getMass());
+		}
+	}
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
