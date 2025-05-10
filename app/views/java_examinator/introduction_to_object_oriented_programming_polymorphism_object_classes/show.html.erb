@@ -1,0 +1,292 @@
+<h1>Introduction to Object-Oriented Programming. Polymorphism. Object Class.</h1>
+<%= link_to "Back to Java Examinator", java_examinator_path %>
+
+<h2>Exercise 1</h2>
+<pre><code class="java">
+import java.util.Scanner;
+
+class Manuscript {
+    // declare instance constants
+    private final String author;
+    private final String title;
+
+    // parameterized constructor
+    public Manuscript(String author, String title) {
+        this.author = author;
+        this.title = title;
+    }
+
+    // override toString
+    @Override
+    public String toString() {
+        return "Manuscript;" + author + ";" + title;
+    }
+}
+
+class PublishedBook extends Manuscript {
+    // declare instance constants
+    private final String publisher;
+    private final int pages;
+
+    // parameterized constructor
+    public PublishedBook(String author, String title, String publisher, int pages) {
+        super(author, title);
+        this.publisher = publisher;
+        this.pages = pages;
+    }
+
+    // override toString
+    @Override
+    public String toString() {
+        return "PublishedBook;" + super.toString().substring("Manuscript;".length()) +
+                ";" + publisher + ";" + pages;
+    }
+}
+
+class ElectronicBook extends Manuscript {
+    // declare instance constants
+    private final String format;
+    private final long size;
+
+    // parameterized constructor
+    public ElectronicBook(String author, String title, String format, long size) {
+        super(author, title);
+        this.format = format;
+        this.size = size;
+    }
+
+    // override toString
+    @Override
+    public String toString() {
+        return "ElectronicBook;" + super.toString().substring("Manuscript;".length()) +
+                ";" + format + ";" + size;
+    }
+}
+
+class Solution {
+
+    public static Manuscript getManuscript(String inputLine) {
+        try (Scanner sc = new Scanner(inputLine)) {
+            sc.useDelimiter(";");
+            int id = sc.nextInt();
+            String author = sc.next();
+            String title = sc.next();
+
+            if (id == 1) {
+                String publisher = sc.next();
+                int pages = sc.nextInt();
+                return new PublishedBook(author, title, publisher, pages);
+            } else if (id == 2) {
+                String format = sc.next();
+                long size = sc.nextLong();
+                return new ElectronicBook(author, title, format, size);
+            } else {
+                return new Manuscript(author, title);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        // For testing
+        String[] inputs = {
+            "0;Joshua Bloch;Effective Java",
+            "1;Joshua Bloch;Effective Java;Addison-Wesley;392",
+            "2;Joshua Bloch;Effective Java;pdf;2294378",
+            "-1;Funni Grafomaniaaak;Autobiography in puzzles )"
+        };
+        for (String input : inputs) {
+            System.out.println(getManuscript(input));
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 2</h2>
+<pre><code class="java">
+import java.util.Scanner;
+
+class Trip {
+    private static final int DAILY_RATE = 50;
+    private final int numberOfDays;
+    private final int fare;
+
+    public Trip(int numberOfDays, int fare) {
+        this.numberOfDays = numberOfDays;
+        this.fare = fare;
+    }
+
+    public final int totalCost() {
+        return cost(); // не можна викликати totalCost() всередині cost()
+    }
+
+    protected int cost() {
+        return DAILY_RATE * numberOfDays + fare;
+    }
+}
+
+class HomeTrip extends Trip {
+    private static final int DAILY_RATE = 60;
+
+    public HomeTrip(int numberOfDays) {
+        super(numberOfDays, 0);
+    }
+
+    @Override
+    protected int cost() {
+        // super.cost() = 50 * days + 0 → days = super.cost() / 50
+        return (super.cost() / 50) * DAILY_RATE;
+    }
+}
+
+class OneDayTrip extends Trip {
+    private static final int DAILY_RATE = 35;
+
+    public OneDayTrip(int fare) {
+        super(1, fare);
+    }
+
+    @Override
+    protected int cost() {
+        return DAILY_RATE + super.cost() - 50;
+    }
+}
+
+class Solution {
+    public static Trip getTrip(Scanner sc) {
+        int id = sc.nextInt();
+        if (id == 1) {
+            return new HomeTrip(sc.nextInt());
+        } else if (id == 2) {
+            return new OneDayTrip(sc.nextInt());
+        } else {
+            return new Trip(sc.nextInt(), sc.nextInt());
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 3</h2>
+<pre><code class="java">
+class Product {
+    private final String name;
+    private final int price;
+
+    public Product(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [name=" + name + ", price=" + price + "]";
+    }
+}
+
+class Purchase {
+    private final Product product;
+    private final int number;
+
+    public Purchase(Product product, int number) {
+        this.product = product;
+        this.number = number;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    protected int getFinalCost(int baseCost) {
+        return baseCost;
+    }
+
+    public final int getCost() {
+        int baseCost = product.getPrice() * number;
+        return getFinalCost(baseCost);
+    }
+
+    protected String fieldsToString() {
+        return "product=" + product + ", number=" + number + ", ";
+    }
+
+    @Override
+    public final String toString() {
+        return getClass().getSimpleName() + " [" + fieldsToString() + "getCost()=" + getCost() + "]";
+    }
+}
+
+class TransportExpencesPurchase extends Purchase {
+    private final int expenses;
+
+    public TransportExpencesPurchase(Product product, int number, int expenses) {
+        super(product, number);
+        this.expenses = expenses;
+    }
+
+    @Override
+    protected int getFinalCost(int baseCost) {
+        return baseCost + expenses;
+    }
+
+    @Override
+    protected String fieldsToString() {
+        return super.fieldsToString() + "expenses=" + expenses + ", ";
+    }
+}
+
+class PriceDiscountPurchase extends Purchase {
+    private final int discount;
+
+    public PriceDiscountPurchase(Product product, int number, int discount) {
+        super(product, number);
+        this.discount = discount;
+    }
+
+    @Override
+    protected int getFinalCost(int baseCost) {
+        return baseCost - discount * getNumber();
+    }
+
+    @Override
+    protected String fieldsToString() {
+        return super.fieldsToString() + "discount=" + discount + ", ";
+    }
+}
+
+class WholesalePurchase extends Purchase {
+    private final double percent;
+    private static final int LIMIT = 20;
+
+    public WholesalePurchase(Product product, int number, double percent) {
+        super(product, number);
+        this.percent = percent;
+    }
+
+    @Override
+    protected int getFinalCost(int baseCost) {
+        if (getNumber() >= LIMIT) {
+            return (int) Math.round(baseCost * (100.0 - percent) / 100.0);
+        }
+        return baseCost;
+    }
+
+    @Override
+    protected String fieldsToString() {
+        return super.fieldsToString() + "percent=" + percent + ", ";
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>

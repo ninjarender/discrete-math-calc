@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
     resource :classes_constructors_and_object_initializing, only: %i[show]
     resource :introduction_to_object_oriented_programming_encapsulation_inheritance_modifiers, only: %i[show]
+    resource :introduction_to_object_oriented_programming_polymorphism_object_classes, only: %i[show]
+    resource :abstract_classes_and_interfaces, only: %i[show]
   end
 
   resources :cnf_to_dnf, only: %i[index create]

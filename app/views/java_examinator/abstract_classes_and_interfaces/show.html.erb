@@ -1,0 +1,292 @@
+<h1>Abstract Classes and Interfaces</h1>
+<%= link_to "Back to Java Examinator", java_examinator_path %>
+
+<h2>Exercise 1</h2>
+<pre><code class="java">
+abstract class Pet {
+    private final String name;
+
+    public Pet(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public abstract String voice();
+}
+
+class Cat extends Pet {
+    public Cat(String name) {
+        super(name);
+    }
+
+    @Override
+    public String voice() {
+        return "Meow";
+    }
+}
+
+class Dog extends Pet {
+    public Dog(String name) {
+        super(name);
+    }
+
+    @Override
+    public String voice() {
+        return "Arf";
+    }
+}
+
+class Cow extends Pet {
+    public Cow(String name) {
+        super(name);
+    }
+
+    @Override
+    public String voice() {
+        return "Moo";
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 2</h2>
+<pre><code class="java">
+import java.util.Scanner;
+
+abstract class Figure2D1Size {
+    protected final double size;
+
+    public Figure2D1Size(double size) {
+        this.size = size;
+    }
+
+    public abstract double perimeter();
+
+    public abstract double area();
+}
+
+class Circle extends Figure2D1Size {
+
+    public Circle(double radius) {
+        super(radius);
+    }
+
+    @Override
+    public double perimeter() {
+        return 2 * Math.PI * size;
+    }
+
+    @Override
+    public double area() {
+        return Math.PI * size * size;
+    }
+}
+
+class RegularPolygon extends Figure2D1Size {
+    private final int number;
+
+    public RegularPolygon(double size, int number) {
+        super(size);
+        this.number = number;
+    }
+
+    @Override
+    public double perimeter() {
+        return size * number;
+    }
+
+    @Override
+    public double area() {
+        return 0.25 * size * size * number / Math.tan(Math.PI / number);
+    }
+}
+
+class Solution {
+    public static Figure2D1Size createFigure(Scanner sc) {
+        double size = sc.nextDouble();
+        if (sc.hasNextInt()) {
+            int number = sc.nextInt();
+            return new RegularPolygon(size, number);
+        } else {
+            return new Circle(size);
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 3</h2>
+<pre><code class="java">
+interface Surface {
+    double area();
+}
+
+class Floor implements Surface {
+    private final double a;
+    private final double b;
+
+    public Floor(double a, double b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    @Override
+    public double area() {
+        return a * b;
+    }
+}
+
+class Tower implements Surface {
+    private final double r;
+    private final double h;
+
+    public Tower(double r, double h) {
+        this.r = r;
+        this.h = h;
+    }
+
+    @Override
+    public double area() {
+        return 2 * Math.PI * r * h;
+    }
+}
+
+class Sphere implements Surface {
+    private final double r;
+
+    public Sphere(double r) {
+        this.r = r;
+    }
+
+    @Override
+    public double area() {
+        return 4 * Math.PI * r * r;
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 4</h2>
+<pre><code class="java">
+interface Sound {
+    String sound();
+}
+
+// Абстрактний клас Pet реалізує інтерфейс Sound
+abstract class Pet implements Sound {
+    // можна додати поля, якщо потрібно, але не обов’язково
+}
+
+// Підкласи Pet зі своїм звуком
+class Cat extends Pet {
+    @Override
+    public String sound() {
+        return "Meow";
+    }
+}
+
+class Dog extends Pet {
+    @Override
+    public String sound() {
+        return "Arf";
+    }
+}
+
+class Cow extends Pet {
+    @Override
+    public String sound() {
+        return "Moo";
+    }
+}
+
+// Клас Locomotive — незмінний, реалізує Sound
+class Locomotive implements Sound {
+    private final int year;
+
+    public Locomotive(int year) {
+        this.year = year;
+    }
+
+    @Override
+    public String sound() {
+        return year < 1981 ? "Choo-Choo" : "Choo-oo-oo";
+    }
+}
+
+// Клас Surprise — незмінний, реалізує Sound
+class Surprise implements Sound {
+    private final int level;
+
+    public Surprise(int level) {
+        this.level = level;
+    }
+
+    @Override
+    public String sound() {
+        return "Wow".repeat(level);
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 5</h2>
+<pre><code class="java">
+interface UpdateOnCondition {
+    boolean check();
+    void update();
+}
+
+class Single implements UpdateOnCondition {
+    private double x;
+
+    public Single(double x) {
+        this.x = x;
+    }
+
+    @Override
+    public boolean check() {
+        return x < 0;
+    }
+
+    @Override
+    public void update() {
+        x = 0.0;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Single [x=%.1f]", x);
+    }
+}
+
+class Pair implements UpdateOnCondition {
+    private int a;
+    private int b;
+
+    public Pair(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    @Override
+    public boolean check() {
+        return a < b;
+    }
+
+    @Override
+    public void update() {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+
+    @Override
+    public String toString() {
+        return "Pair [a=" + a + ", b=" + b + "]";
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
