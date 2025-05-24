@@ -1,0 +1,204 @@
+<h1>Generics</h1>
+<%= link_to "Back to Java Examinator", java_examinator_path %>
+
+<h2>Exercise 1</h2>
+<pre><code class="java">
+import java.util.Scanner;
+
+/** 1. Generic class with two independent type parameters. */
+class Pair<A, B> {
+    private final A a;
+    private final B b;
+
+    public Pair(A a, B b) {          // constructor
+        this.a = a;
+        this.b = b;
+    }
+
+    // do not change
+    @Override
+    public String toString() {
+        return "Pair [a=" + a + ", b=" + b + "]";
+    }
+}
+
+/** 2. Helper with factory-style method that decides the concrete type parameters
+ *    from the actual tokens it reads.                                        */
+class Solution {
+
+    /** Reads exactly two tokens from the given scanner and returns a
+     *  suitably-typed Pair instance. */
+    public static Pair<?, ?> getPair(Scanner sc) {
+        String firstToken  = sc.next();
+        String secondToken = sc.next();
+
+        boolean firstIsInt  = isInteger(firstToken);
+        boolean secondIsInt = isInteger(secondToken);
+
+        if (firstIsInt && secondIsInt) {
+            return new Pair<>(Integer.valueOf(firstToken),
+                              Integer.valueOf(secondToken));
+        } else if (firstIsInt) {            // int , String
+            return new Pair<>(Integer.valueOf(firstToken), secondToken);
+        } else if (secondIsInt) {           // String , int
+            return new Pair<>(firstToken, Integer.valueOf(secondToken));
+        } else {                            // String , String
+            return new Pair<>(firstToken, secondToken);
+        }
+    }
+
+    private static boolean isInteger(String s) {
+        try { Integer.parseInt(s); return true; }
+        catch (NumberFormatException ex) { return false; }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 2</h2>
+<pre><code class="java">
+import java.util.Scanner;
+
+/** 1. Универсальний клас Mark із числовою межою для T */
+class Mark<T extends Number> {
+
+    /** Прохідний бал (класова константа) */
+    private static final int PASS_GRADE = 4;
+
+    /** Значення оцінки (невід’ємне поле-константа) */
+    private final T grade;
+
+    public Mark(T grade) {           // конструктор
+        this.grade = grade;
+    }
+
+    /** true, якщо grade ≥ PASS_GRADE */
+    public boolean isPassed() {
+        return grade.doubleValue() >= PASS_GRADE;
+    }
+}
+
+/** 2. Фабрика, що будує Mark на основі введеного токена */
+class Solution {
+
+    /**
+     * Зчитує єдиний токен зі Scanner і повертає Mark з відповідним
+     * параметром типу (Integer чи Double). Якщо токен не є числом —
+     * кидаємо IllegalArgumentException, як вимагається завданням.
+     */
+    public static Mark<? extends Number> getMark(Scanner sc) {
+        if (!sc.hasNext()) {                        // порожній рядок
+            throw new IllegalArgumentException();
+        }
+
+        // Першою перевіряємо int, бо Scanner трактує ціле як допустимий double
+        if (sc.hasNextInt()) {
+            int val = sc.nextInt();
+            return new Mark<>(val);                 // Mark<Integer>
+        } else if (sc.hasNextDouble()) {
+            double val = sc.nextDouble();
+            return new Mark<>(val);                 // Mark<Double>
+        } else {
+            throw new IllegalArgumentException();   // не число
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 3</h2>
+<pre><code class="java">
+import java.util.Scanner;
+
+/* ---------- 1. Параметризований інтерфейс ---------- */
+interface Higher<T> {
+    /** @return true, якщо this “вище” (краще) за other */
+    boolean isHigher(T other);
+}
+
+/* ---------- 2. Клас Product ---------- */
+class Product implements Higher<Product> {
+    private final String name;
+    private final int price;
+
+    public Product(String name, int price) {
+        this.name = name;
+        this.price  = price;
+    }
+
+    public Product(Scanner sc) {
+        name  = sc.next();
+        price = sc.nextInt();
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    /** “Вищим” вважається товар з лексикографічно меншим ім’ям */
+    @Override
+    public boolean isHigher(Product product) {
+        return name.compareTo(product.name) < 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Product [name=" + name + ", price=" + price + "]";
+    }
+}
+
+/* ---------- 3. Клас Purchase ---------- */
+class Purchase implements Higher<Purchase> {
+    private final Product product;
+    private final int number;
+
+    public Purchase(Product product, int number) {
+        this.product = product;
+        this.number  = number;
+    }
+
+    public Purchase(Scanner sc) {
+        product = new Product(sc);
+        number  = sc.nextInt();
+    }
+
+    public int getCost() {
+        return product.getPrice() * number;
+    }
+
+    /** “Вищою” є покупка з більшою сумарною вартістю */
+    @Override
+    public boolean isHigher(Purchase purchase) {
+        return getCost() > purchase.getCost();
+    }
+
+    @Override
+    public String toString() {
+        return "Purchase [product=" + product
+               + ", number=" + number
+               + ", getCost()=" + getCost() + "]";
+    }
+}
+
+/* ---------- 4. Універсальне рішення ---------- */
+class Solution {
+
+    /**
+     * Повертає “найвищий” елемент масиву згідно з isHigher().
+     * @throws IllegalArgumentException якщо масив порожній
+     */
+    public static <T extends Higher<T>> T getHighest(T[] arr) {
+        if (arr.length == 0) {
+            throw new IllegalArgumentException();
+        }
+        T highest = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i].isHigher(highest)) {
+                highest = arr[i];
+            }
+        }
+        return highest;
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
