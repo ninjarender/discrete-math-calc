@@ -1,0 +1,199 @@
+<h1>Enums</h1>
+<%= link_to "Back to Java Examinator", java_examinator_path %>
+
+<h2>Exercise 1</h2>
+<pre><code class="java">
+enum DayOfWeek {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY;
+
+    public DayOfWeek next() {
+        // Use ordinal to get index and (index + 1) % 7 for next
+        int nextOrdinal = (this.ordinal() + 1) % DayOfWeek.values().length;
+        return DayOfWeek.values()[nextOrdinal];
+    }
+}
+
+class Demo {
+    public static void main(String[] args) {
+        try {
+            for (String arg : args) {
+                DayOfWeek day = DayOfWeek.valueOf(arg.toUpperCase());
+                System.out.println(day.next());
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid day input");
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 2</h2>
+<pre><code class="java">
+enum ArithmeticOperation {
+    ADDITION {
+        public double apply(double x, double y) {
+            return x + y;
+        }
+    },
+    SUBTRACTION {
+        public double apply(double x, double y) {
+            return x - y;
+        }
+    },
+    MULTIPLICATION {
+        public double apply(double x, double y) {
+            return x * y;
+        }
+    },
+    DIVISION {
+        public double apply(double x, double y) {
+            return x / y;
+        }
+    };
+
+    public abstract double apply(double x, double y);
+}
+
+class Demo {
+    public static void main(String[] args) {
+        for (String arg : args) {
+            String[] pair = arg.split(",");
+            double a = Double.parseDouble(pair[0]);
+            double b = Double.parseDouble(pair[1]);
+            String operationName = pair[2];
+
+            ArithmeticOperation op = ArithmeticOperation.valueOf(operationName);
+            double result = op.apply(a, b);
+
+            //do not change the next line
+            System.out.println(a + ", " + b + ", " + op + ": " + result);
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 3</h2>
+<pre><code class="java">
+enum CardSuit {
+    HEARTS, DIAMONDS, CLUBS, SPADES;
+
+    @Override
+    public String toString() {
+        // Capitalize first letter, rest lowercase
+        String lowercase = name().toLowerCase();
+        return Character.toUpperCase(lowercase.charAt(0)) + lowercase.substring(1);
+    }
+}
+
+class Demo {
+    public static void main(String[] args) {
+        for (String arg : args) {
+            try {
+                CardSuit card = CardSuit.valueOf(arg);
+                System.out.println(card);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid input: " + arg);
+            }
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 4</h2>
+<pre><code class="java">
+enum Planet {
+    MERCURY(0.39),
+    VENUS(0.72),
+    EARTH(1.0),
+    MARS(1.52),
+    JUPITER(5.2),
+    SATURN(9.58),
+    URANUS(19.18),
+    NEPTUNE(30.07);
+
+    private final double distanceFromSun;
+
+    Planet(double distanceFromSun) {
+        this.distanceFromSun = distanceFromSun;
+    }
+
+    public double getDistanceFromSun() {
+        return distanceFromSun;
+    }
+
+    public static double distanceBetween(Planet p1, Planet p2) {
+        return Math.abs(p1.getDistanceFromSun() - p2.getDistanceFromSun());
+    }
+}
+
+class Demo {
+    public static void main(String[] args) {
+        for (String arg : args) {
+            String[] pair = arg.split("-");
+            String planetNameA = pair[0];
+            String planetNameB = pair[1];
+
+            Planet planetA = Planet.valueOf(planetNameA);
+            Planet planetB = Planet.valueOf(planetNameB);
+
+            double distanceFromSunToPlanetA = planetA.getDistanceFromSun();
+            double distanceFromSunToPlanetB = planetB.getDistanceFromSun();
+            double distanceBetween = Planet.distanceBetween(planetA, planetB);
+
+            //do not change the next line
+            System.out.format("%.2f %.2f %.2f%n", distanceFromSunToPlanetA, distanceFromSunToPlanetB, distanceBetween);
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 5</h2>
+<pre><code class="java">
+enum EmployeeDesignation {
+    JUNIOR_DEVELOPER(20),
+    SENIOR_DEVELOPER(30),
+    TEAM_LEAD(40),
+    PROJECT_MANAGER(50);
+
+    private final int payScale;
+
+    EmployeeDesignation(int payScale) {
+        this.payScale = payScale;
+    }
+
+    public int getPayScale() {
+        return payScale;
+    }
+
+    public int yearlySalary(int workingHoursPerYear) {
+        return payScale * workingHoursPerYear;
+    }
+}
+
+class Demo {
+    public static void main(String[] args) {
+        for (String arg : args) {
+            String[] pair = arg.split(":");
+            String designationName = pair[0];
+            int workingHoursPerYear = Integer.parseInt(pair[1]);
+
+            EmployeeDesignation designation = EmployeeDesignation.valueOf(designationName);
+            int salary = designation.yearlySalary(workingHoursPerYear);
+
+            //do not change the next line
+            System.out.println(salary);
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>

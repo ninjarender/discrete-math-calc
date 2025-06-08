@@ -1,0 +1,259 @@
+<h1>Wrapper Classes</h1>
+<%= link_to "Back to Java Examinator", java_examinator_path %>
+
+<h2>Exercise 1</h2>
+<pre><code class="java">
+class Solution {
+
+	/**
+	 * Calculates the average value of two Integers.
+	 * 
+	 * @param number1 the first value of the Integer type
+	 * @param number2 the second value of the Integer type
+	 * @return the average value of the type Double, or null otherwise
+	 */
+	public static Double calculateAverage(Integer number1, Integer number2) {
+		if (number1 == null || number2 == null) {
+			return null;
+		}
+		return (number1 + number2) / 2.0;
+	}
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 2</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Converts a string to an array of numbers
+     *
+     * @param line a string of integers and real numbers separated by a space
+     * @return an array of numbers, or null otherwise
+     */
+    public static Number[] convertString2Numbers(String line) {
+        if (line == null || line.trim().isEmpty()) {
+            return null;
+        }
+
+        String[] parts = line.trim().split("\\s+");
+        Number[] result = new Number[parts.length];
+
+        for (int i = 0; i < parts.length; i++) {
+            try {
+                if (parts[i].contains(".")) {
+                    result[i] = Double.parseDouble(parts[i]);
+                } else {
+                    result[i] = Integer.parseInt(parts[i]);
+                }
+            } catch (NumberFormatException e) {
+                result[i] = null;
+            }
+        }
+
+        return result;
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 3</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Calculates the average of the real numbers in an array of integers and real numbers.
+     *
+     * @param numbers an array of integers and real numbers
+     * @return the average of the real numbers, or null otherwise
+     */
+    public static Double calculateAverageDoubles(Number[] numbers) {
+        if (numbers == null) {
+            return null;
+        }
+
+        double sum = 0.0;
+        int count = 0;
+
+        for (Number n : numbers) {
+            if (n instanceof Double) {
+                sum += n.doubleValue();
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            return null;
+        }
+
+        return sum / count;
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 4</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Compares two values of the Double type.
+     *
+     * @param value1 the first value of the Double type
+     * @param value2 the second value of the Double type
+     * @return "less" if value1 < value2, or "more" if value1 > value2, or "equal" otherwise
+     */
+    public static String compareDouble(Double value1, Double value2) {
+        if (value1 < value2) {
+            return "less";
+        } else if (value1 > value2) {
+            return "more";
+        } else {
+            return "equal";
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 5</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Counts the number of uppercase characters.
+     *
+     * @param str the given string
+     * @return the number of uppercase characters
+     */
+    public static Integer countUpperCase(String str) {
+        if (str == null) {
+            return 0;
+        }
+
+        int count = 0;
+        for (char ch : str.toCharArray()) {
+            if (Character.isUpperCase(ch)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 6</h2>
+<pre><code class="java">
+import java.math.BigInteger;
+
+class Solution {
+
+    /**
+     * Calculates the factorial of a number.
+     *
+     * @param n a natural number as a string
+     * @return the factorial as a string or "Invalid parameter" if invalid input
+     */
+    public static String calculateFactorial(String n) {
+        try {
+            int num = Integer.parseInt(n);
+            if (num < 0) {
+                return "Invalid parameter";
+            }
+
+            BigInteger result = BigInteger.ONE;
+            for (int i = 2; i <= num; i++) {
+                result = result.multiply(BigInteger.valueOf(i));
+            }
+
+            return result.toString();
+
+        } catch (NumberFormatException e) {
+            return "Invalid parameter";
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 7</h2>
+<pre><code class="java">
+import java.math.BigInteger;
+
+class Solution {
+
+    /**
+     * Calculates a number from the Fibonacci sequence
+     *
+     * @param n the natural value of the index in the sequence
+     * @return a number from the Fibonacci sequence with the corresponding index, or 0 otherwise
+     */
+    public static BigInteger calculateFibonacci(int n) {
+        if (n < 0) {
+            return BigInteger.ZERO;
+        }
+
+        if (n == 0) {
+            return BigInteger.ZERO;
+        } else if (n == 1) {
+            return BigInteger.ONE;
+        }
+
+        BigInteger a = BigInteger.ZERO;
+        BigInteger b = BigInteger.ONE;
+        BigInteger result = BigInteger.ZERO;
+
+        for (int i = 2; i <= n; i++) {
+            result = a.add(b);
+            a = b;
+            b = result;
+        }
+
+        return result;
+    }
+}
+</code></pre>
+
+<h2>Exercise 8</h2>
+<pre><code class="java">
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+class Solution {
+
+    public static String twentyPercent(String number) {
+        try {
+            BigDecimal value = new BigDecimal(number);
+            BigDecimal percent = value.multiply(new BigDecimal("0.2"));
+
+            // Спеціальна обробка для .0001 та подібних
+            if (percent.stripTrailingZeros().scale() > 1) {
+                return percent.stripTrailingZeros().toPlainString();
+            }
+
+            // Інакше — обов'язково одна або дві десяткові цифри
+            percent = percent.setScale(2, RoundingMode.HALF_UP);
+            String result = percent.toPlainString();
+
+            // Якщо останній символ 0, але передостанній не крапка — залишаємо
+            if (result.endsWith("0") && !result.endsWith(".00")) {
+                return result;
+            }
+
+            // Якщо закінчується на .00 — замінити на .0
+            if (result.endsWith(".00")) {
+                return result.substring(0, result.length() - 1);
+            }
+
+            return result;
+
+        } catch (NumberFormatException e) {
+            return "Invalid number format";
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>77%</b></p>

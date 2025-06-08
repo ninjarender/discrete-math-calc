@@ -1,0 +1,271 @@
+<h1>Strings</h1>
+<%= link_to "Back to Java Examinator", java_examinator_path %>
+
+<h2>Exercise 1</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Method returns string with the reversed sequence of characters
+     *
+     * @param str the given string
+     * @return the reversed string
+     */
+    public static String reverse(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+
+        char[] chars = str.toCharArray();
+        int left = 0;
+        int right = chars.length - 1;
+
+        while (left < right) {
+            // Swap characters
+            char temp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = temp;
+
+            left++;
+            right--;
+        }
+
+        return new String(chars);
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 2</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Method returns the last longest word from the given string
+     *
+     * @param text given string
+     * @return the longest word
+     */
+    public static String lastLongestWord(String text) {
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+
+        String[] words = text.split("\\s+");
+        String longest = "";
+        int maxLength = 0;
+
+        for (String word : words) {
+            if (word.length() >= maxLength) {
+                maxLength = word.length();
+                longest = word;
+            }
+        }
+
+        return longest;
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 3</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Returns a new one that removes the first and last symbols of words longer than 5 characters.
+     *
+     * @param text given string
+     * @return the new string
+     */
+    static String trimSymbols(String text) {
+        if (text == null || text.isEmpty()) {
+            return "";
+        }
+
+        String[] words = text.split(" ");
+        String result = "";
+
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            if (word.length() > 5) {
+                if (word.length() > 2) {
+                    word = word.substring(1, word.length() - 1);
+                } else {
+                    word = "";
+                }
+            }
+            result += word;
+            if (i != words.length - 1) {
+                result += " ";
+            }
+        }
+
+        return result;
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 4</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Returns the number of digits in a string
+     *
+     * @param str the given string
+     * @return the number of digits in a string
+     */
+    public static int countDigitsInString(String str) {
+        if (str == null || str.isEmpty()) {
+            return 0;
+        }
+
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (ch >= '0' && ch <= '9') {
+                count++;
+            }
+        }
+
+        return count;
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 5</h2>
+<pre><code class="java">
+import java.util.Arrays;
+
+class Solution {
+
+    /**
+     * Checks whether two strings are anagrams of each other
+     *
+     * @param str1 the first string
+     * @param str2 the second string
+     * @return true if the strings are anagrams, and false otherwise
+     */
+    public static boolean isAnagrams(String str1, String str2) {
+        if (str1 == null || str2 == null) {
+            return false;
+        }
+
+        // Якщо довжини різні — точно не анаграми
+        if (str1.length() != str2.length()) {
+            return false;
+        }
+
+        // Перетворимо на масив символів
+        char[] arr1 = str1.toCharArray();
+        char[] arr2 = str2.toCharArray();
+
+        // Сортуємо обидва масиви
+        Arrays.sort(arr1);
+        Arrays.sort(arr2);
+
+        // Порівнюємо
+        return Arrays.equals(arr1, arr2);
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 6</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Removes duplicate symbols in a string
+     *
+     * @param str the given string
+     * @return a string with duplicate characters removed
+     */
+    public static String removeDuplicateSymbols(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+
+        StringBuilder result = new StringBuilder();
+        boolean[] seen = new boolean[256]; // ASCII characters
+
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if (!seen[ch]) {
+                seen[ch] = true;
+                result.append(ch);
+            }
+        }
+
+        return result.toString();
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 7</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Generates a sequence of numbers
+     *
+     * @param start initial value of the number
+     * @param count number of numbers in sequence
+     * @return generated sequence of numbers
+     */
+    public static String generateNumberSequence(int start, int count) {
+        if (count <= 0) {
+            return "()";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+
+        for (int i = 0; i < count; i++) {
+            sb.append(start + i);
+            if (i < count - 1) {
+                sb.append(" ");
+            }
+        }
+
+        sb.append(")");
+        return sb.toString();
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 8</h2>
+<pre><code class="java">
+class Solution {
+
+    /**
+     * Reverses the order of words in a string
+     *
+     * @param input the given string
+     * @return a string with the word order reversed
+     */
+    public static String reverseWordOrder(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            return input;
+        }
+
+        String[] words = input.trim().split("\\s+");
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = words.length - 1; i >= 0; i--) {
+            sb.append(words[i]);
+            if (i != 0) {
+                sb.append(" ");
+            }
+        }
+
+        return sb.toString();
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>

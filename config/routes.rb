@@ -20,6 +20,9 @@ Rails.application.routes.draw do
     resource :introduction_to_object_oriented_programming_polymorphism_object_classes, only: %i[show]
     resource :abstract_classes_and_interfaces, only: %i[show]
     resource :generics, only: %i[show]
+    resource :enums, only: %i[show]
+    resource :wrapper_classes, only: %i[show]
+    resource :strings, only: %i[show]
   end
 
   resources :cnf_to_dnf, only: %i[index create]
