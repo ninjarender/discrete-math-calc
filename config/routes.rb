@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     resource :enums, only: %i[show]
     resource :wrapper_classes, only: %i[show]
     resource :strings, only: %i[show]
+    resource :exceptions, only: %i[show]
   end
 
   resources :cnf_to_dnf, only: %i[index create]

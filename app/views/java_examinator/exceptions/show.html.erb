@@ -1,0 +1,293 @@
+<h1>Generics</h1>
+<%= link_to "Back to Java Examinator", java_examinator_path %>
+
+<h2>Exercise 1</h2>
+<pre><code class="java">
+class Demo {
+	public static boolean isPrime(int n) {
+		if (n < 0) {
+		  throw new IllegalArgumentException(n + " is not a natural number");
+		}
+
+		if (n < 2) return false;
+
+    for (int i = 2; i * i <= n; i++) {
+      if (n % i == 0) return false;
+    }
+		
+		return true;
+	}
+
+	public static void main(String[] args) {
+		for (String arg : args) {
+		  try {
+  		  int number = Integer.parseInt(arg);
+        boolean result = isPrime(number);
+        System.out.println(result);
+		  } catch (IllegalArgumentException e) {
+		    System.out.println(e.getMessage());
+		  }
+		}
+	}
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 2</h2>
+<pre><code class="java">
+class Student {
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String newName) {
+        if (newName == null || !newName.matches("[A-Z][a-z]+")) {
+            throw new IllegalArgumentException("Invalid student name");
+        }
+        this.name = newName;
+    }
+}
+
+class Demo {
+    public static void main(String[] args) {
+        for (String arg : args) {
+            Student student = new Student();
+            try {
+                student.setName(arg);
+                System.out.println(student.getName());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid student name");
+            }
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 3</h2>
+<pre><code class="java">
+class Thermometer {
+    private int temperature;
+
+    public Thermometer(String initTemperature) {
+        try {
+            this.temperature = Integer.parseInt(initTemperature);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException(initTemperature + " is not an integer");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(temperature);
+    }
+}
+
+class Demo {
+    public static void main(String[] args) {
+        for (String arg : args) {
+            try {
+                Thermometer thermometer = new Thermometer(arg);
+                System.out.println(thermometer);
+            } catch (NumberFormatException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 4</h2>
+<pre><code class="java">
+class Demo {
+
+    public static int sum(int[] array, int fromIndex, int toIndex) {
+        if (array == null) {
+            throw new IllegalArgumentException("Array is null");
+        }
+        if (fromIndex > toIndex) {
+            throw new IllegalArgumentException("fromIndex > toIndex: " + fromIndex + " > " + toIndex);
+        }
+        if (fromIndex < 0) {
+            throw new ArrayIndexOutOfBoundsException("fromIndex < 0: " + fromIndex);
+        }
+        if (toIndex >= array.length) {
+            throw new ArrayIndexOutOfBoundsException("toIndex >= array.length: " + toIndex);
+        }
+
+        int sum = 0;
+        for (int i = fromIndex; i <= toIndex; i++) {
+            sum += array[i];
+        }
+        return sum;
+    }
+
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 5</h2>
+<pre><code class="java">
+    import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+
+class Demo {
+
+	public static boolean isLeap(String dateString) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+            .withResolverStyle(ResolverStyle.STRICT); // сувора валідація
+
+    LocalDate date = LocalDate.parse(dateString, formatter); // може кинути виняток
+    return date.isLeapYear();
+	}
+
+	public static void main(String[] args) {
+		for (String arg : args) {
+		  try {
+  			boolean result = isLeap(arg);
+  			System.out.println(result);
+		  } catch (DateTimeParseException e) {
+		    int errorIndex = e.getErrorIndex();
+
+        // Захист: якщо getErrorIndex() повертає -1, знайдемо перший невалідний символ вручну
+        if (errorIndex == -1) {
+            errorIndex = findFirstInvalidIndex(arg);
+        }
+
+        char ch = errorIndex >= 0 && errorIndex < arg.length()
+                  ? arg.charAt(errorIndex)
+                  : '?';
+
+        System.out.println(arg + ": The illegal sequence begins with the character '" + ch + "' at index " + errorIndex);
+		  }
+		}
+	}
+
+  private static int findFirstInvalidIndex(String s) {
+    // Очікуємо формат: dd/MM/yyyy -> 10 символів: XX/XX/XXXX
+    if (s.length() != 10) return 0;
+
+    for (int i = 0; i < s.length(); i++) {
+      char c = s.charAt(i);
+      if (i == 2 || i == 5) {
+        if (c != '/') return i;
+      } else {
+        if (!Character.isDigit(c)) return i;
+      }
+    }
+
+    return 0; // default fallback
+  }
+
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 6</h2>
+<pre><code class="java">
+class Demo {
+
+  public static int resistance(int voltage, int current) {
+    if (current == 0) {
+      throw new ArithmeticException("Division by zero");
+    }
+    return voltage / current; // цілочисельне ділення
+  }
+
+  public static void main(String[] args) {
+    for (String arg : args) {
+      String[] pair = arg.split(",");
+      int voltage = Integer.parseInt(pair[0]);
+      int current = Integer.parseInt(pair[1]);
+
+      try {
+        int resistance = resistance(voltage, current);
+        System.out.println(resistance);
+      } catch (ArithmeticException e) {
+        System.out.println("Resistance is infinite: voltage = " + voltage + ", current = " + current);
+      }
+    }
+  }
+
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
+
+<h2>Exercise 7</h2>
+<pre><code class="java">
+// Checked exception
+class InsufficientFundsException extends Exception {
+    public InsufficientFundsException(String message) {
+        super(message);
+    }
+}
+
+// Unchecked exception
+class NegativeAmountException extends RuntimeException {
+    public NegativeAmountException(String message) {
+        super(message);
+    }
+}
+
+class BankAccount {
+    private String accountHolder;
+    private int balance;
+
+    public BankAccount(String accountHolder, int initialBalance) {
+        if (initialBalance < 0) {
+            throw new NegativeAmountException("Initial balance cannot be negative");
+        }
+        this.accountHolder = accountHolder;
+        this.balance = initialBalance;
+    }
+
+    public void deposit(int amount) {
+        if (amount < 0) {
+            throw new NegativeAmountException("Deposit amount cannot be negative");
+        }
+        balance += amount;
+    }
+
+    public void withdraw(int amount) throws InsufficientFundsException {
+        if (amount < 0) {
+            throw new NegativeAmountException("Withdrawal amount cannot be negative");
+        }
+        if (amount > balance) {
+            throw new InsufficientFundsException("Insufficient funds to withdraw $" + amount);
+        }
+        balance -= amount;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    @Override
+    public String toString() {
+        return accountHolder + ": " + balance;
+    }
+}
+
+// Optional main class for manual testing
+class Demo {
+    public static void main(String[] args) {
+        try {
+            BankAccount account = new BankAccount("John Doe", 10_000);
+            System.out.println(account);
+            account.deposit(500);
+            System.out.println(account);
+            account.withdraw(300);
+            System.out.println(account);
+            account.withdraw(15_000);
+        } catch (NegativeAmountException | InsufficientFundsException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+</code></pre>
+<p>My mark: <b>100%</b></p>
